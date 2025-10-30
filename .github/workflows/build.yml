@@ -29,8 +29,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: push image
         uses: docker/build-push-action@v6
@@ -38,6 +38,6 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/meu-app:${{ github.run_number }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/meu-app:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/meu-app:${{ github.run_number }}
           platforms: linux/amd64
