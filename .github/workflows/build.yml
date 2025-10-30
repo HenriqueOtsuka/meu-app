@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./api
-          file: Dockerfile.run
+          file: ./api/Dockerfile.run
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/meu-app:latest
