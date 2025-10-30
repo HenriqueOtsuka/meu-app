@@ -2,8 +2,9 @@ name: Build Image
 
 on:
   push:
-    branches: ["develop"]
-    workflow_dispatch:
+    branches:
+      - develop
+  workflow_dispatch:                
 
 jobs:
     build:
