@@ -19,8 +19,9 @@ jobs:
 
       - name: Build image
         run: |
-            docker build -t meu-app-builder -f api/Dockerfile.build .
-            docker build -t meu-app -f api/Dockerfile.run .
+            cd ./api
+            docker build -t meu-app-builder -f Dockerfile.build .
+            docker build -t meu-app -f Dockerfile.run .
     # - name: Push Docker Image to Docker Hub
     #   env:
     #       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
