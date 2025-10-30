@@ -36,8 +36,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./api
+          file: Dockerfile.run
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/meu-app:latest
             ${{ secrets.DOCKER_HUB_USERNAME }}/meu-app:${{ github.run_number }}
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
