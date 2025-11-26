@@ -1,0 +1,38 @@
+name: Build Image
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 🧱 Build Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        run: |
+          echo "🔧 Building Docker image..."
+          docker build -t meu-miniapp:latest .
+          docker images meu-miniapp:latest
+
+  test:
+    name: 🧪 Run basic healthcheck
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Test container locally
+        run: |
+          echo "🚀 Starting container for tests..."
+          docker run -d --rm -p 8080:8080 --name demo meu-miniapp:latest
+          sleep 3
+          echo "🔍 Testing /health endpoint..."
+          curl -f http://localhost:8080/healthz || (echo "❌ Healthcheck failed" && exit 1)
+          docker stop demo
+          echo "✅ Healthcheck passed"
